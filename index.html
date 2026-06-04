@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Beamblade Shortener</title>
+</head>
+<body>
+    <h1>Beamblade URL Shortener</h1>
+
+    <input id="url" placeholder="Paste URL here" style="width:300px;">
+    <button onclick="shorten()">Shorten</button>
+
+    <p id="result"></p>
+
+    <script>
+        function shorten() {
+            const url = document.getElementById("url").value;
+
+            if (!url.startsWith("http")) {
+                alert("Enter a full URL starting with https://");
+                return;
+            }
+
+            const code = Math.random().toString(36).substring(2, 8);
+
+            localStorage.setItem(code, url);
+
+            document.getElementById("result").innerHTML =
+                `${window.location.origin}/#${code}`;
+        }
+
+        const code = location.hash.substring(1);
+
+        if (code) {
+            const url = localStorage.getItem(code);
+
+            if (url) {
+                location.href = url;
+            }
+        }
+    </script>
+</body>
+</html>
