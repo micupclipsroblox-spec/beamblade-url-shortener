@@ -9,24 +9,15 @@
 <p id="result"></p>
 
 <script>
-async function shorten() {
+function shorten() {
   const url = document.getElementById("url").value;
 
-  if (!url) {
-    alert("Paste a URL first");
-    return;
-  }
+  const encoded = btoa(url); // encode link safely
 
-  try {
-    const res = await fetch("/api/new?url=" + encodeURIComponent(url));
+  const short = `${window.location.origin}/go.html#${encoded}`;
 
-    const text = await res.text(); // safer than .json()
-
-    document.getElementById("result").innerHTML = text;
-  } catch (e) {
-    document.getElementById("result").innerText =
-      "Error calling API (check Vercel deployment)";
-  }
+  document.getElementById("result").innerHTML =
+    `<a href="${short}">${short}</a>`;
 }
 </script>
 </body>
