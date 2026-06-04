@@ -6,10 +6,9 @@ export default async function handler(req, res) {
   const url = await kv.get(code);
 
   if (!url) {
-    return res.status(404).send("Link not found");
+    return res.status(404).send("Not found");
   }
 
-  return res.writeHead(302, {
-    Location: url,
-  }).end();
+  res.writeHead(302, { Location: url });
+  res.end();
 }
