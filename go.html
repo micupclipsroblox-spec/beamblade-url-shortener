@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<script>
+const hash = location.hash.slice(1);
+
+if (!hash) {
+  document.body.innerText = "No link found";
+} else {
+  const url = atob(hash);
+  location.href = url;
+}
+</script>
+
+</body>
+</html>
