@@ -12,12 +12,7 @@
 async function shorten() {
   const url = document.getElementById("url").value;
 
-  const res = await fetch("/api/shorten", {
-    method: "POST",
-    headers: {"Content-Type":"application/json"},
-    body: JSON.stringify({ url })
-  });
-
+  const res = await fetch("/api/new?url=" + encodeURIComponent(url));
   const data = await res.json();
 
   document.getElementById("result").innerHTML =
