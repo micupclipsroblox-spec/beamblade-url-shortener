@@ -12,11 +12,21 @@
 async function shorten() {
   const url = document.getElementById("url").value;
 
-  const res = await fetch("/api/new?url=" + encodeURIComponent(url));
-  const data = await res.json();
+  if (!url) {
+    alert("Paste a URL first");
+    return;
+  }
 
-  document.getElementById("result").innerHTML =
-    `<a href="${data.short}">${data.short}</a>`;
+  try {
+    const res = await fetch("/api/new?url=" + encodeURIComponent(url));
+
+    const text = await res.text(); // safer than .json()
+
+    document.getElementById("result").innerHTML = text;
+  } catch (e) {
+    document.getElementById("result").innerText =
+      "Error calling API (check Vercel deployment)";
+  }
 }
 </script>
 </body>
